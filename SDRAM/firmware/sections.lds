@@ -29,7 +29,8 @@ SECTIONS
 		*crt0*(.text)
 		KEEP(*crt0*(.text))
 		KEEP(*(.text.isr))
-		*(.text .stub .text.* .gnu.linkonce.t.*)
+
+		/* *(.text .stub .text.* .gnu.linkonce.t.*) */
 		_etext = .;
 	} > flash
 
@@ -53,7 +54,7 @@ SECTIONS
 		*(.sdata .sdata.* .gnu.linkonce.s.*)
 		. = ALIGN(8);
 		_edata = .;
-	} > mprj AT > flash
+	} > dff AT > flash
 
 	.bss :
 	{
@@ -68,13 +69,13 @@ SECTIONS
 		. = ALIGN(8);
 		_ebss = .;
 		_end = .;
-	} > mprj AT > flash
+	} > dff AT > flash
 
 	.mprjram :
 	{
 		. = ALIGN(8);
 		_fsram = .;
-
+		*libgcc.a:*(.text .text.*)
 	} > mprjram AT > flash
 }
 
